@@ -1,5 +1,5 @@
 import { matchFound } from "./matchFound.js";
-import { getRandomNumber } from "../utils/getRandomNumber.js";
+import { getRandomNumber } from "./getRandomNumber.js";
 import { globals } from "../globals.js";
 /* 
 매칭을 수행하는 함수, setInterval 함수를 이용하여 무한 반복.

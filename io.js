@@ -1,5 +1,4 @@
 import { Server } from "socket.io";
-import { User } from "./models/User.js";
 import { globals } from "./globals.js";
 
 const socketHandler = (server) => {
@@ -25,7 +24,7 @@ const socketHandler = (server) => {
 function matchStart(socket, nickname) {
   console.log("match start!");
   socket.nickname = nickname;
-  globals.matchQueue.push(new User(socket, socket.nickname));
+  globals.matchQueue.push({ socket: socket, nickname: socket.nickname });
   socket.emit("matchStartResponse");
 }
 
