@@ -11,13 +11,13 @@ const socketHandler = (server) => {
     socket.on("matchStart", (data) => matchStart(socket, data));
 
     // 매칭 취소
-    socket.on("matchQuit", (data) => matchQuit(socket));
+    socket.on("matchQuit", () => matchQuit(socket));
 
     // 채팅 전송
     socket.on("messageSend", (data) => messageSend(socket, data, io));
 
     // 채팅 퇴장
-    socket.on("roomQuit", (data) => roomQuit(socket));
+    socket.on("roomQuit", () => roomQuit(socket));
   });
 };
 
