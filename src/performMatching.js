@@ -9,7 +9,6 @@ matchQueue에 존재하는 유저 2명의 정보를 FIFO 순으로 추출하고,
 */
 export function performMatching() {
   if (globals.matchQueue == undefined || globals.matchQueue.length < 2) return; // 길이 2 이하면 아무것도 수행 안함.
-
   while (globals.matchQueue.length > 1) {
     let roomNumber = getRandomNumber();
     for (let num = 0; num < 2; num++) {
