@@ -1,11 +1,12 @@
 import { Server } from "socket.io";
 import { globals } from "./globals.js";
 
-const socketHandler = (server) => {
+const createSocket = (server) => {
   const io = new Server(server);
 
   io.on("connection", (socket) => {
     console.log("SOMEONE HAS CONNECTED!! SOCKET ID is ", socket.id);
+    socket.roomNumber = 0;
     socket.status = globals.status["INLOBBY"];
     // 매칭 시작
     socket.on("matchStart", (data) => matchStart(socket, data));
@@ -22,11 +23,7 @@ const socketHandler = (server) => {
 };
 
 function matchStart(socket, nickname) {
-  if (
-    (socket.status == globals.status["MATCHING"] ||
-      socket.status != globals.status["INLOBBY"]) &&
-    socket.roomNumber != 0
-  )
+  if (socket.status != globals.status["INLOBBY"] && socket.roomNumber != 0)
     return;
 
   socket.nickname = nickname;
@@ -47,13 +44,11 @@ function messageSend(socket, data, io) {
   console.log(
     "messeage: " + data + ", and room number is " + socket.roomNumber
   );
-  io.sockets
-    .to(socket.roomNumber)
-    .emit("message", {
-      message: data,
-      sender: socket.id,
-      nickname: socket.nickname,
-    }); // 메세지 보낸 사용자가 누구인지 확인하게 하기. flutter 쪽에서 메세지의 전송자에 따라 다르게 구성해야함.
+  io.sockets.to(socket.roomNumber).emit("message", {
+    message: data,
+    sender: socket.id,
+    nickname: socket.nickname,
+  }); // flutter 쪽에서 메세지의 전송자에 따라 다르게 구성해야함.
 }
 
 function roomQuit(socket, io) {
@@ -72,4 +67,4 @@ function roomQuit(socket, io) {
   );
 }
 
-export default socketHandler;
+export default createSocket;
