@@ -7,8 +7,8 @@ export function matchFound(user, roomNumber) {
   user.roomNumber = roomNumber;
   user.status = globals.status["CHATTING"];
   console.log(
-    "match found. nickname is : " +
-      user.nickname +
+    "match found. socket id is : " +
+      user.id +
       " and room number is " +
       user.roomNumber
   );

@@ -19,35 +19,41 @@ const createSocket = (server) => {
 
     // 채팅 퇴장
     socket.on("roomQuit", () => roomQuit(socket, io));
+
+    // 소켓 연결 종료
+    socket.on("disconnect", () => disconnected(socket));
   });
 };
 
-function matchStart(socket, nickname) {
+function matchStart(socket) {
   if (socket.status != globals.status["INLOBBY"] && socket.roomNumber != 0)
     return;
 
-  socket.nickname = nickname;
   socket.status = globals.status["MATCHING"];
   globals.matchQueue.push(socket);
-  socket.emit("matchStartResponse");
 }
 
 function matchQuit(socket) {
   globals.matchQueue = globals.matchQueue.filter(
-    (user) => user.socket.id !== socket.id
+    (user) => user.id !== socket.id
   ); // 매칭 취소한 유저 정보만 삭제
   socket.status = globals.status["INLOBBY"];
-  socket.emit("matchQuitResponse");
 }
 
 function messageSend(socket, data, io) {
   console.log(
-    "messeage: " + data + ", and room number is " + socket.roomNumber
+    "messeage: " +
+      data.message +
+      ", and room number is " +
+      socket.roomNumber +
+      " and animal is " +
+      data.animal
   );
   io.sockets.to(socket.roomNumber).emit("message", {
-    message: data,
+    message: data.message,
     sender: socket.id,
-    nickname: socket.nickname,
+    nickname: data.nickname,
+    animal: data.animal,
   }); // flutter 쪽에서 메세지의 전송자에 따라 다르게 구성해야함.
 }
 
@@ -67,4 +73,7 @@ function roomQuit(socket, io) {
   );
 }
 
+function disconnected(socket) {
+  console.log(socket.id + " has disconnected from socket");
+}
 export default createSocket;
