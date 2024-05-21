@@ -8,11 +8,11 @@ const server = createServer(app);
 const port = 3000;
 
 app.get("/", (req, res) => {
-  res.send("<h1>Socket.io Server is running..</h1>");
+  res.send(`<h1>Socket Server is Runnig at Port ${port}</h1>`);
 });
 
 server.listen(3000, () => {
-  console.log(`server running at port:${port}`);
+  console.log(`Node.js Server is runnig at PORT ${port}`);
 });
 
 createSocket(server);

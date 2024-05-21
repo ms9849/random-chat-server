@@ -65,7 +65,7 @@ function roomQuit(socket, io) {
   io.sockets.to(roomNumber).emit("partnerRoomQuit");
 
   console.log(
-    socket.nickname +
+    socket.id +
       " 님이 퇴장했습니다. " +
       roomNumber +
       " 방에 남은 인원수: " +
