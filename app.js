@@ -12,7 +12,7 @@ app.get("/", (req, res) => {
 });
 
 server.listen(3000, () => {
-  console.log(`Node.js Server is runnig at PORT ${port}`);
+  console.log(`Node.js Socket Server is runnig at PORT ${port}`);
 });
 
 createSocket(server);
