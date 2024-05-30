@@ -21,7 +21,7 @@ const createSocket = (server) => {
     socket.on("roomQuit", () => roomQuit(socket, io));
 
     // 소켓 연결 종료
-    socket.on("disconnect", () => disconnected(socket));
+    socket.on("disconnect", () => disconnected(socket, io));
   });
 };
 
@@ -73,7 +73,18 @@ function roomQuit(socket, io) {
   );
 }
 
-function disconnected(socket) {
+function disconnected(socket, io) {
   console.log(socket.id + " has disconnected from socket");
+
+  if (socket.status == globals.status["MATCHING"]) {
+    matchQuit(socket);
+    console.log("매칭 중 종료로 인한 이벤트 발생");
+  }
+
+  if (socket.status == globals.status["CHATTING"]) {
+    roomQuit(socket, io);
+    console.log("채팅 중 종료로 인한 이벤트 발생");
+  }
+  socket.close();
 }
 export default createSocket;
