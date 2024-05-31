@@ -85,6 +85,5 @@ function disconnected(socket, io) {
     roomQuit(socket, io);
     console.log("채팅 중 종료로 인한 이벤트 발생");
   }
-  socket.close();
 }
 export default createSocket;
