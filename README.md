@@ -1,8 +1,8 @@
 # 동물 랜덤채팅 어플리케이션
 
-#### Frond-end: Flutter    
+### Frond-end: Flutter    
    
-#### Back-end: Node.js, Express
+### Back-end: Node.js, Express
 
 단국대학교 24년 1학기 모바일 플랫폼 기말 프로젝트로 제작한 랜덤 채팅 애플리케이션 입니다.
 
