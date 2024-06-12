@@ -1,3 +1,5 @@
+#동물 랜덤채팅 어플리케이션
+
 Frond-end: Flutter
 Back-end: Node.js, Express
 
